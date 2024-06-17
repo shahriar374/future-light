@@ -1,13 +1,34 @@
-package com.rectifier.future_light.dto;
+package com.rectifier.future_light.model;
 
-public class SignupDto {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "users")
+public class Users {
+
+	@Id
 	private String username;
 	private String password;
 	private String fullname;
 	private String email;
 	private String gender;
 	private int age;
+
+	public Users() {
+		super();
+	}
+
+	public Users(String username, String password, String fullname, String email, String gender, int age) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.email = email;
+		this.gender = gender;
+		this.age = age;
+	}
 
 	public String getUsername() {
 		return username;

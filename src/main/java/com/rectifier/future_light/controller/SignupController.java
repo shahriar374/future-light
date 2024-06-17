@@ -24,6 +24,7 @@ public class SignupController {
 	public String signupSave(SignupDto signupDto) {
 
 		signupService.saveUser(signupDto);
+		signupService.saveAdditionalInfo(signupDto);
 
 		return "redirect:/login";
 	}

@@ -8,6 +8,9 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import com.rectifier.future_light.dto.SignupDto;
+import com.rectifier.future_light.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class SignupService {
@@ -19,6 +22,9 @@ public class SignupService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	UserRepository userRepository;
+	
 	public void saveUser(SignupDto signupDto) {
 		UserDetails user = User
 				.withUsername(signupDto.getUsername())
@@ -27,6 +33,17 @@ public class SignupService {
 				.build();
 		
 		jdbcUserDetailsManager.createUser(user);
+	}
+	
+	@Transactional
+	public void saveAdditionalInfo(SignupDto signupDto) {
+		userRepository.saveAdditionalInfo(
+				signupDto.getUsername(),
+				signupDto.getFullname(), 
+				signupDto.getEmail(),
+				signupDto.getGender(),
+				signupDto.getAge()
+		);
 	}
 
 }

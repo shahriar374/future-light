@@ -34,6 +34,7 @@ public class SecurityConfig {
 				.requestMatchers("/signup/save").permitAll()
 				.requestMatchers("/css/*").permitAll()
 				.requestMatchers("/images/*").permitAll()
+				.requestMatchers("/images/favicon/*").permitAll()
 				.anyRequest().authenticated())
 				.formLogin(login -> login.permitAll());
 
