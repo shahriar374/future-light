@@ -36,7 +36,11 @@ public class SecurityConfig {
 				.requestMatchers("/images/*").permitAll()
 				.requestMatchers("/images/favicon/*").permitAll()
 				.anyRequest().authenticated())
-				.formLogin(login -> login.permitAll());
+				.formLogin(login -> login
+				.loginPage("/signin")
+			    .failureUrl("/signin?error")
+				.permitAll()
+				);
 
 		return http.build();
 	}

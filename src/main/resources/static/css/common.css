@@ -149,7 +149,7 @@ body {
 /* Buttons */
 .btn-primary {
 	background-color: var(--custom-primary);
-	border-color: var(--custom-primary);
+	border-color: var(--custom-success);
 }
 
 .btn-primary:hover {

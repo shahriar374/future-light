@@ -1,16 +1,11 @@
-.signup-inp {
+.signin-inp {
 	background: #ff00 !important;
 	color: #fff !important;
 }
 
-.signup-inp:focus {
+.signin-inp:focus {
 	border-color: #32ee88;
 	box-shadow: 0 0 0 .25rem rgba(50, 238, 136, 0.07);
-}
-
-.signup-form-wrapper {
-	margin-top: 50px;
-	margin-bottom: 100px;
 }
 
 .future-light-logo {
@@ -27,6 +22,6 @@ input[type=number] {
 }
 
 option {
-  background: var(--custom-primary) !important;
-  color: var(--custom-light) !important;
+	background: var(--custom-primary) !important;
+	color: var(--custom-light) !important;
 }
