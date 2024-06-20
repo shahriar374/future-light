@@ -26,7 +26,7 @@ public class SignupController {
 		signupService.saveUser(signupDto);
 		signupService.saveAdditionalInfo(signupDto);
 
-		return "redirect:/login";
+		return "redirect:/signin";
 	}
 
 }
