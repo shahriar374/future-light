@@ -40,6 +40,9 @@ public class SecurityConfig {
 				.formLogin(login -> login
 				.loginPage("/signin")
 			    .failureUrl("/signin?error")
+				.permitAll())
+				.logout(logout -> logout
+				.logoutSuccessUrl("/signin?logout")
 				.permitAll()
 				);
 

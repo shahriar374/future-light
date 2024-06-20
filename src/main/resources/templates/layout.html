@@ -29,12 +29,13 @@
 	<!-- Navbar Start -->
 	<nav th:fragment="navbar" class="navbar navbar-expand">
 		<div class="container-fluid">
-			<a class="navbar-brand col-sm-5 me-0" th:href="@{/}"> <img
+			<a class="navbar-brand col-sm-5 me-0" th:href="@{/}"> 
+				<img
 				class="main-logo" alt="future-light-logo"
 				th:src="@{/images/logo-cropped.png}">
 			</a>
 			
-			<div class="d-flex col-sm-7 justify-content-end">
+			<div class="d-flex col-sm-7 justify-content-end align-items-center">
 				<a sec:authorize="isAnonymous()" th:href="@{/signin}">
 					<button class="btn btn-success me-2">Sign in</button>
 				</a> 
@@ -42,8 +43,11 @@
 					<button class="btn btn-secondary">Sign up</button>
 				</a>
 				<a sec:authorize="isAuthenticated()" th:href="@{/chat}">
-					<button class="btn btn-primary">Chat</button>
+					<button class="btn btn-primary me-2">Chat</button>
 				</a>
+				<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" >
+					<button type="submit" class="btn btn-secondary">Sign out</button>
+				</form>
 			</div>
 		</div>
 	</nav>
