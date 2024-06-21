@@ -33,6 +33,7 @@ public class SecurityConfig {
 				.requestMatchers("/signup").permitAll()
 				.requestMatchers("/signup/save").permitAll()
 				.requestMatchers("/css/*").permitAll()
+				.requestMatchers("/feather/**").permitAll()
 				.requestMatchers("/images/*").permitAll()
 				.requestMatchers("/images/favicon/*").permitAll()
 				.requestMatchers("/js/*").hasAnyRole("USER", "ADMIN")

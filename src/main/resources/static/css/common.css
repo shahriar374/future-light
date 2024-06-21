@@ -121,6 +121,18 @@
 	font-style: italic;
 }
 
+/* Feather icon */
+.feather {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+
 /* Global CSS */
 body {
 	background-color: var(--custom-primary) !important;
@@ -205,5 +217,9 @@ body {
 @media ( min-width : 320px) and (max-width: 480px) {
 	.main-logo {
 		width: 135px;
+	}
+	
+	.hide-mobile {
+		display: none !important;
 	}
 }

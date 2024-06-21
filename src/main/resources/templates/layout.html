@@ -37,16 +37,26 @@
 			
 			<div class="d-flex col-sm-7 justify-content-end align-items-center">
 				<a sec:authorize="isAnonymous()" th:href="@{/signin}">
-					<button class="btn btn-success me-2">Sign in</button>
+					<button class="btn btn-success me-2">
+					<svg class="feather hide-mobile"><use th:href="@{/feather/feather-sprite.svg#log-in}" /></svg>
+					Sign in
+					</button>
 				</a> 
 				<a sec:authorize="isAnonymous()" th:href="@{/signup}">
-					<button class="btn btn-secondary">Sign up</button>
+					<button class="btn btn-secondary">
+					<svg class="feather hide-mobile"><use th:href="@{/feather/feather-sprite.svg#user-plus}" /></svg>
+					Sign up
+					</button>
 				</a>
 				<a sec:authorize="isAuthenticated()" th:href="@{/chat}">
-					<button class="btn btn-primary me-2">Chat</button>
+					<button class="btn btn-primary me-2">
+					<svg class="feather hide-mobile"><use th:href="@{/feather/feather-sprite.svg#message-square}" /></svg>
+					Chat</button>
 				</a>
 				<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" >
-					<button type="submit" class="btn btn-secondary">Sign out</button>
+					<button type="submit" class="btn btn-secondary">
+					<svg class="feather hide-mobile"><use th:href="@{/feather/feather-sprite.svg#log-out}" /></svg>
+					Sign out</button>
 				</form>
 			</div>
 		</div>
