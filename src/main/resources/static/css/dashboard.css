@@ -1,1 +1,27 @@
-@charset "UTF-8";
+.dash-inp {
+	background: #ff00 !important;
+	color: #fff !important;
+}
+
+.dash-inp:focus {
+	border-color: #32ee88;
+	box-shadow: 0 0 0 .25rem rgba(50, 238, 136, 0.07);
+}
+
+.dash-inp::placeholder {
+	color: #fff !important;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+option {
+	background: var(--custom-primary) !important;
+	color: var(--custom-light) !important;
+}

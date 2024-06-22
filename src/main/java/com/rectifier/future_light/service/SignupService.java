@@ -14,32 +14,32 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class SignupService {
-	
-	
+
+
 	@Autowired
 	JdbcUserDetailsManager jdbcUserDetailsManager;
-	
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	public void saveUser(SignupDto signupDto) {
 		UserDetails user = User
 				.withUsername(signupDto.getUsername())
 				.password(passwordEncoder.encode(signupDto.getPassword()))
 				.roles("USER")
 				.build();
-		
+
 		jdbcUserDetailsManager.createUser(user);
 	}
-	
+
 	@Transactional
 	public void saveAdditionalInfo(SignupDto signupDto) {
 		userRepository.saveAdditionalInfo(
 				signupDto.getUsername(),
-				signupDto.getFullname(), 
+				signupDto.getFullname(),
 				signupDto.getEmail(),
 				signupDto.getGender(),
 				signupDto.getAge()
