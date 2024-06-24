@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" lang="en">
+	xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head
 	th:insert="~{layout :: head(title='Dashboard', localcss='dashboard.css')}"></head>
@@ -24,6 +25,23 @@
 				  		<p>Information updated</p>
 				  		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
+				
+				<!-- Admin buttons -->
+				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/allusers}">
+				<button class="btn btn-primary">
+							<svg class="feather">
+								<use th:href="@{/feather/feather-sprite.svg#users}" /></svg>
+							All users
+				</button>
+				</a>
+				
+				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/statistics}">
+				<button class="btn btn-primary">
+							<svg class="feather">
+								<use th:href="@{/feather/feather-sprite.svg#bar-chart-2}" /></svg>
+							Statistics
+				</button>
+				</a>
 
 				<form class="text-start my-5" th:action="@{/dashboard/update}" method="post">
 					<div class="mb-3">

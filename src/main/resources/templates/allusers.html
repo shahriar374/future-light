@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head
+	th:insert="~{layout :: head(title='All users', localcss='allusers.css')}"></head>
+
+<body>
+	<!-- Navbar -->
+	<th:block th:replace="~{layout :: navbar}"></th:block>
+
+	<!-- Main Body Start -->
+	<div class="container">
+		<div class="row text-center">
+
+			<h1 class="mt-5 poppins-bold">All users</h1>
+
+
+			<table class="table table-dark mt-4">
+				<thead>
+					<tr>
+						<th scope="col">Username</th>
+						<th scope="col">Full Name</th>
+						<th scope="col">Email</th>
+						<th scope="col">Gender</th>
+						<th scope="col">Age</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+				
+					<tr th:each="user : ${users}">
+						<td th:text="${user.username}"></td>
+						<td th:text="${user.fullname}"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${#strings.capitalize(user.gender)}"></td>
+						<td th:text="${user.age}"></td>
+						<td>
+							
+							<!-- Modal trigger button -->
+							<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+										<svg class="feather">
+											<use th:href="@{/feather/feather-sprite.svg#edit}" /></svg>
+										Edit
+							</button>
+							
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered">
+							    <div class="modal-content">
+							      <div class="modal-header" data-bs-theme="dark" >
+							        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit information</h1>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="modal-body">
+							        
+									<p>Sample modal body text</p>
+									
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							        <button type="button" class="btn btn-primary">Save changes</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							<!-- Modal end -->
+							
+							
+							<!-- Delete button -->
+							<a th:href="@{/allusers}">
+							<button class="btn btn-danger">
+										<svg class="feather">
+											<use th:href="@{/feather/feather-sprite.svg#user-x}" /></svg>
+										Delete
+							</button>
+							</a>
+						</td>
+						
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+	<!-- Main Body End -->
+
+	<!-- BootStrap JS -->
+	<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+</body>
+</html>

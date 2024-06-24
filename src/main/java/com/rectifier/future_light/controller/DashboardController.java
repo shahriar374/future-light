@@ -1,6 +1,7 @@
 package com.rectifier.future_light.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,19 @@ public class DashboardController {
 		dashboardService.updateUser(dto);
 
 		return "redirect:/dashboard?updated";
+	}
+
+	@GetMapping("/allusers")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String allusers(Model m) {
+		m.addAttribute("users", dashboardService.findAllUsers());
+		return "allusers";
+	}
+
+	@GetMapping("/statistics")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String statistics() {
+		return "statistics";
 	}
 
 }

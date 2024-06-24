@@ -1,5 +1,7 @@
 package com.rectifier.future_light.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +31,10 @@ public class DashboardService {
 	public void updateUser(SignupDto dto) {
 		userRepository.save(dtoToUser(dto));
 	}
+	
+	public List<Users> findAllUsers() {
+		return userRepository.findAll();
+	}
 
 	public Users dtoToUser(SignupDto dto) {
 		Users user = new Users();
@@ -38,7 +44,10 @@ public class DashboardService {
 		user.setGender(dto.getGender());
 		user.setAge(dto.getAge());
 
-		if (!(dto.getPassword().isEmpty())) {
+		if (dto.getPassword().isEmpty()) {
+			Users tmpUser = userRepository.findById(dto.getUsername()).orElse(null);
+			user.setPassword(tmpUser.getPassword());
+		} else {
 			user.setPassword(passwordEncoder.encode(dto.getPassword()));
 		}
 

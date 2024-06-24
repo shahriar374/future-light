@@ -13,6 +13,10 @@
 	--custom-transparent: #fff0;
 }
 
+a {
+    text-decoration: none;
+}
+
 .poppins-thin {
 	font-family: "Poppins", sans-serif;
 	font-weight: 100;
@@ -189,6 +193,10 @@ body {
 .btn-success:hover {
 	background-color: var(--custom-transparent);
 	border-color: var(--custom-success);
+}
+
+.btn-danger {
+    --bs-btn-hover-bg: #bb2d3b00;
 }
 
 /* Texts */
