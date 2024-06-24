@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import com.rectifier.future_light.dto.SignupDto;
@@ -17,6 +18,9 @@ public class DashboardService {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	JdbcUserDetailsManager jdbcUserDetailsManager;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -34,6 +38,10 @@ public class DashboardService {
 	
 	public List<Users> findAllUsers() {
 		return userRepository.findAll();
+	}
+
+	public void deleteUser(String username) {
+		jdbcUserDetailsManager.deleteUser(username);
 	}
 
 	public Users dtoToUser(SignupDto dto) {
