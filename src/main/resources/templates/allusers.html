@@ -16,8 +16,14 @@
 
 			<h1 class="mt-5 poppins-bold">All users</h1>
 
+			<!-- Alerts -->
+			<div th:if="${param.updated}" class="alert alert-success alert-dismissible fade show text-start" role="alert">
+				<p>Information updated</p>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	  		</div>
 
-			<table class="table table-dark mt-4">
+
+			<table class="table table-dark mt-5">
 				<thead>
 					<tr>
 						<th scope="col">Username</th>
@@ -30,23 +36,22 @@
 				</thead>
 				<tbody>
 				
-					<tr th:each="user : ${users}">
+					<tr th:each="user, iterStat : ${users}">
 						<td th:text="${user.username}"></td>
 						<td th:text="${user.fullname}"></td>
 						<td th:text="${user.email}"></td>
 						<td th:text="${#strings.capitalize(user.gender)}"></td>
 						<td th:text="${user.age}"></td>
 						<td>
-							
 							<!-- Modal trigger button -->
-							<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<button class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="'#exampleModal' + ${iterStat.index}">
 										<svg class="feather">
 											<use th:href="@{/feather/feather-sprite.svg#edit}" /></svg>
 										Edit
 							</button>
 							
 							<!-- Modal -->
-							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal fade" th:id="'exampleModal' + ${iterStat.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog modal-dialog-centered">
 							    <div class="modal-content">
 							      <div class="modal-header" data-bs-theme="dark" >
@@ -55,12 +60,61 @@
 							      </div>
 							      <div class="modal-body">
 							        
-									<p>Sample modal body text</p>
+									<!-- Edit form start -->
+									<form class="text-start my-5" th:action="@{/allusers/update}" method="post">
+										<div class="mb-3">
+											<label for="fullname" class="form-label">Full Name</label> <input
+												type="text" class="form-control dash-inp" name="fullname"
+												id="fullname" th:value="${user.fullname}" required>
+										</div>
+										<div class="mb-3">
+											<input
+												type="hidden" class="form-control dash-inp" name="username"
+												id="username" th:value="${user.username}" required>
+										</div>
+										<div class="mb-3">
+											<label for="email" class="form-label">Email</label> <input
+												type="email" class="form-control dash-inp" name="email"
+												id="email" th:value="${user.email}" required>
+										</div>
+										<div class="mb-3">
+											<label for="gender" class="form-label">Gender</label> <select
+												class="form-control dash-inp" name="gender" id="gender" required>
+												
+												<option th:if="${user.gender == 'male'}" value="male" selected>Male</option>
+												<option th:if="${user.gender == 'male'}" value="female">Female</option>
+												
+												<option th:if="${user.gender == 'female'}" value="male">Male</option>
+												<option th:if="${user.gender == 'female'}" value="female" selected>Female</option>
+												
+											</select>
+										</div>
+										<div class="mb-3">
+											<label for="age" class="form-label">Age</label> <input
+												type="number" min="1" max="150" class="form-control dash-inp"
+												name="age" id="age" th:value="${user.age}" required>
+										</div>
+										<div class="mb-3">
+											<label for="password" class="form-label">Password</label> <input
+												placeholder="Enter new password" type="password" minlength="8"
+												maxlength="128" class="form-control dash-inp" name="password"
+												id="password" >
+										</div>
+										<div class="d-flex justify-content-center modal-footer">
+											<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+												<svg class="feather">
+													<use th:href="@{/feather/feather-sprite.svg#x-circle}" /></svg>
+												Close
+											</button>
+											<button type="submit" class="btn btn-success">
+												<svg class="feather">
+													<use th:href="@{/feather/feather-sprite.svg#edit}" /></svg>
+												Update
+											</button>
+										</div>
+									</form>
+									<!-- Edit form end -->
 									
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							        <button type="button" class="btn btn-primary">Save changes</button>
 							      </div>
 							    </div>
 							  </div>
