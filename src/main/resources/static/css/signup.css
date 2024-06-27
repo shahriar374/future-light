@@ -17,16 +17,15 @@
 	width: 250px;
 }
 
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
 
-input[type=number] {
-	-moz-appearance: textfield;
-}
+
 
 option {
-  background: var(--custom-primary) !important;
-  color: var(--custom-light) !important;
+	background: var(--custom-primary) !important;
+	color: var(--custom-light) !important;
 }

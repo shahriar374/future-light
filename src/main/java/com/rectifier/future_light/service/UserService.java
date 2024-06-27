@@ -3,6 +3,10 @@ package com.rectifier.future_light.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +18,7 @@ import com.rectifier.future_light.model.Users;
 import com.rectifier.future_light.repository.UserRepository;
 
 @Service
-public class DashboardService {
+public class UserService {
 
 	@Autowired
 	UserRepository userRepository;
@@ -38,6 +42,13 @@ public class DashboardService {
 	
 	public List<Users> findAllUsers() {
 		return userRepository.findAll();
+	}
+
+	public Page<Users> findAllUsersPage(int pageNo, int pageSize, String sortBy) {
+		Sort sort = Sort.by(Sort.Direction.ASC, sortBy);
+		Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+		
+		return userRepository.findAll(pageable);
 	}
 
 	public void deleteUser(String username) {

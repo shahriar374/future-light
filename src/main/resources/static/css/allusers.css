@@ -25,16 +25,44 @@
 	color: #fff !important;
 }
 
+.goto-inp {
+	width: 200px;
+}
+
+.sortby-inp {
+	width: 200px;
+	display: flex;
+}
+
+.table-head {
+	vertical-align: middle;
+}
+
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
 
-input[type=number] {
-	-moz-appearance: textfield;
-}
-
 option {
 	background: var(--custom-primary) !important;
 	color: var(--custom-light) !important;
+}
+
+li {
+	padding: 0px 5px;
+}
+
+a {
+	text-decoration: none !important;
+	color: #fff !important;
+}
+
+a:hover {
+	color: #000 !important;
+}
+
+.active a, .page-link:focus, .page-link:active {
+	background: var(--custom-success) !important;
+	color: #000 !important;
+	border-color:  var(--custom-success) !important;
 }

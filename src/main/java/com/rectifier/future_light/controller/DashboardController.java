@@ -9,33 +9,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rectifier.future_light.dto.SignupDto;
-import com.rectifier.future_light.service.DashboardService;
+import com.rectifier.future_light.service.UserService;
 
 @Controller
 public class DashboardController {
 
 	@Autowired
-	DashboardService dashboardService;
+	UserService userService;
 
 	@GetMapping("/dashboard")
-	public String dashboard(@ModelAttribute SignupDto dto,Model m) {
+	public String dashboard(@ModelAttribute SignupDto dto, Model m) {
 		m.addAttribute("isDashboard", true);
-		m.addAttribute("user", dashboardService.getCurrentUser());
+		m.addAttribute("user", userService.getCurrentUser());
 		return "dashboard";
 	}
 
 	@PostMapping("/dashboard/update")
 	public String updateDashboardInfo(SignupDto dto) {
-		dashboardService.updateUser(dto);
+		userService.updateUser(dto);
 
 		return "redirect:/dashboard?updated";
-	}
-
-	@GetMapping("/allusers")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public String allusers(Model m) {
-		m.addAttribute("users", dashboardService.findAllUsers());
-		return "allusers";
 	}
 
 	@GetMapping("/statistics")

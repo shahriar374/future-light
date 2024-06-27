@@ -15,7 +15,6 @@ import jakarta.transaction.Transactional;
 @Service
 public class SignupService {
 
-
 	@Autowired
 	JdbcUserDetailsManager jdbcUserDetailsManager;
 
