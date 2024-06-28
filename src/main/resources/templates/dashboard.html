@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head
+	th:insert="~{layout :: head(title='Dashboard', localcss='dashboard.css')}"></head>
+
+<body>
+	<!-- Navbar -->
+	<th:block th:replace="~{layout :: navbar}"></th:block>
+
+	<!-- Main Body Start -->
+	<div class="container">
+		<div class="row text-center justify-content-center">
+
+			<!-- Display user information -->
+			<div class="col-md-6" th:if="${user != null}">
+				<h1 class="mt-5 poppins-bold">
+					Hello, <span th:text="${user.fullname}"></span>
+				</h1>
+				
+				<!-- Alerts -->
+				<div th:if="${param.updated}" class="alert alert-success alert-dismissible fade show text-start" role="alert">
+				  		<p>Information updated</p>
+				  		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				
+				<!-- Admin buttons -->
+				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/allusers}">
+				<button class="btn btn-primary">
+							<svg class="feather">
+								<use th:href="@{/feather/feather-sprite.svg#users}" /></svg>
+							All users
+				</button>
+				</a>
+				
+				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/statistics}">
+				<button class="btn btn-primary">
+							<svg class="feather">
+								<use th:href="@{/feather/feather-sprite.svg#bar-chart-2}" /></svg>
+							Statistics
+				</button>
+				</a>
+
+				<form class="text-start my-5" th:action="@{/dashboard/update}" method="post">
+					<div class="mb-3">
+						<label for="fullname" class="form-label">Full Name</label> <input
+							type="text" class="form-control dash-inp" name="fullname"
+							id="fullname" th:value="${user.fullname}" required>
+					</div>
+					<div class="mb-3">
+						<input
+							type="hidden" class="form-control dash-inp" name="username"
+							id="username" th:value="${user.username}" required>
+					</div>
+					<div class="mb-3">
+						<label for="email" class="form-label">Email</label> <input
+							type="email" class="form-control dash-inp" name="email"
+							id="email" th:value="${user.email}" required>
+					</div>
+					<div class="mb-3">
+						<label for="gender" class="form-label">Gender</label> <select
+							class="form-control dash-inp" name="gender" id="gender" required>
+							
+							<option th:if="${user.gender == 'male'}" value="male" selected>Male</option>
+							<option th:if="${user.gender == 'male'}" value="female">Female</option>
+							
+							<option th:if="${user.gender == 'female'}" value="male">Male</option>
+							<option th:if="${user.gender == 'female'}" value="female" selected>Female</option>
+							
+						</select>
+					</div>
+					<div class="mb-3">
+						<label for="age" class="form-label">Age</label> <input
+							type="number" min="1" max="150" class="form-control dash-inp"
+							name="age" id="age" th:value="${user.age}" required>
+					</div>
+					<div class="mb-3">
+						<label for="password" class="form-label">Password</label> <input
+							placeholder="Enter new password" type="password" minlength="8"
+							maxlength="128" class="form-control dash-inp" name="password"
+							id="password" >
+					</div>
+					<div class="d-flex justify-content-center">
+						<button type="submit" class="btn btn-success">
+							<svg class="feather">
+								<use th:href="@{/feather/feather-sprite.svg#edit}" /></svg>
+							Update
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<div th:if="${user == null}">
+				<h2 class="mt-4">User not found!</h2>
+			</div>
+
+
+		</div>
+	</div>
+	<!-- Main Body End -->
+
+	<!-- BootStrap JS -->
+	<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+</body>
+</html>

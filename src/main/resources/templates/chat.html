@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" lang="en">
+	xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:include="layout :: head(title='Future Light Chat', localcss='chat.css')"></head>
+<head th:insert="~{layout :: head(title='Future Light Chat', localcss='chat.css')}"></head>
 
 <meta name="csrf-token" th:content="${_csrf.token}" />
 
@@ -24,13 +25,16 @@
 			<input type="text" class="form-control chat-inp rounded me-3"
 				id="userInput" placeholder="Type a message" onkeypress="handleKeyPress(event)" />
 			<div class="input-group-append">
-				<button class="btn btn-primary" onclick="sendMessage()">Send</button>
+				<button class="btn btn-primary" onclick="sendMessage()">
+				<svg class="feather hide-mobile"><use th:href="@{/feather/feather-sprite.svg#send}" /></svg>
+				Send
+				</button>
 			</div>
 		</div>
 	</div>
 
 	<!-- BootStrap JS -->
-	<th:block th:replace="layout :: bootstrapjs"></th:block>
+	<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
 
 	<script th:src="@{/js/chat.js}"></script>
 </body>

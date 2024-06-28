@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
 	@Bean
@@ -33,6 +35,7 @@ public class SecurityConfig {
 				.requestMatchers("/signup").permitAll()
 				.requestMatchers("/signup/save").permitAll()
 				.requestMatchers("/css/*").permitAll()
+				.requestMatchers("/feather/**").permitAll()
 				.requestMatchers("/images/*").permitAll()
 				.requestMatchers("/images/favicon/*").permitAll()
 				.requestMatchers("/js/*").hasAnyRole("USER", "ADMIN")

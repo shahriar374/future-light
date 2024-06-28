@@ -20,7 +20,7 @@ public class Users {
 		super();
 	}
 
-	public Users(String username, String password, String fullname, String email, String gender, int age) {
+	public Users(String username, String password, String fullname, String email, String gender, Integer age) {
 		super();
 		this.username = username;
 		this.password = password;

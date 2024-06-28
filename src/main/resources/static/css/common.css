@@ -13,6 +13,10 @@
 	--custom-transparent: #fff0;
 }
 
+a {
+    text-decoration: none;
+}
+
 .poppins-thin {
 	font-family: "Poppins", sans-serif;
 	font-weight: 100;
@@ -121,6 +125,18 @@
 	font-style: italic;
 }
 
+/* Feather icon */
+.feather {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+
 /* Global CSS */
 body {
 	background-color: var(--custom-primary) !important;
@@ -179,6 +195,10 @@ body {
 	border-color: var(--custom-success);
 }
 
+.btn-danger {
+    --bs-btn-hover-bg: #bb2d3b00;
+}
+
 /* Texts */
 .text-primary {
 	color: var(--custom-primary);
@@ -205,5 +225,9 @@ body {
 @media ( min-width : 320px) and (max-width: 480px) {
 	.main-logo {
 		width: 135px;
+	}
+	
+	.hide-mobile {
+		display: none !important;
 	}
 }

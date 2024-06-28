@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head
+	th:insert="~{layout :: head(title='All users', localcss='allusers.css')}"></head>
+
+<body>
+	<!-- Navbar -->
+	<th:block th:replace="~{layout :: navbar}"></th:block>
+
+	<!-- Main Body Start -->
+	<div class="container">
+		<div class="row text-center">
+
+			<h1 class="mt-5 poppins-bold">All users</h1>
+
+			<!-- Alerts -->
+			<div th:if="${param.updated}" class="alert alert-success alert-dismissible fade show text-start" role="alert">
+				<p>Information updated</p>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	  		</div>
+
+			<div th:if="${param.deleted}" class="alert alert-danger alert-dismissible fade show text-start" role="alert">
+				<p>User deleted</p>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	  		</div>
+
+			<div class="table-responsive">
+				<table class="table table-dark mt-5">
+					<thead>
+						<tr class="table-head">
+							<th scope="col">Username</th>
+							<th scope="col">Full Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Age</th>
+							<th scope="col">
+								<!-- Sort by form -->
+								<form class="d-flex justify-content-center align-items-center" th:action="@{/allusers}" method="get">
+									<span class="me-2">Sort By:</span>
+									<div class="sortby-inp">
+										<select class="form-select me-1 dash-inp" name="sortBy" required>
+											<option th:if="${sortBy == 'username'}" value="username" selected>Username</option>
+											<option th:if="${sortBy == 'fullname'}" value="fullname" selected>Full Name</option>
+											<option th:if="${sortBy == 'email'}" value="email" selected>Email</option>
+											<option th:if="${sortBy == 'age'}" value="age" selected>Age</option>
+
+											<option th:if="${sortBy != 'username'}" value="username">Username</option>
+											<option th:if="${sortBy != 'fullname'}" value="fullname">Full Name</option>
+											<option th:if="${sortBy != 'email'}" value="email">Email</option>
+											<option th:if="${sortBy != 'age'}" value="age">Age</option>
+										</select>
+										<button class="btn btn-primary" type="submit">
+											<svg class="feather">
+												<use th:href="@{/feather/feather-sprite.svg#arrow-right}" /></svg>
+										</button>
+									</div>
+								</form>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user, iterStat : ${usersPage}">
+							<td th:text="${user.username}"></td>
+							<td th:text="${user.fullname}"></td>
+							<td th:text="${user.email}"></td>
+							<td th:text="${#strings.capitalize(user.gender)}"></td>
+							<td th:text="${user.age}"></td>
+							<td>
+								<!-- Modal trigger button -->
+								<button class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="'#editModal' + ${iterStat.index}">
+											<svg class="feather">
+												<use th:href="@{/feather/feather-sprite.svg#edit}" /></svg>
+											Edit
+								</button>
+								
+								<!-- Modal -->
+								<div class="modal fade" th:id="'editModal' + ${iterStat.index}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+									<div class="modal-header" data-bs-theme="dark" >
+										<h1 class="modal-title fs-5" id="exampleModalLabel">Edit information</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										
+										<!-- Edit form start -->
+										<form class="text-start my-5" th:action="@{/allusers/update}" method="post">
+											<div class="mb-3">
+												<label for="fullname" class="form-label">Full Name</label> <input
+													type="text" class="form-control dash-inp" name="fullname"
+													th:id="'fullname' + ${iterStat.index}" th:value="${user.fullname}" required>
+											</div>
+											<div class="mb-3">
+												<input
+													type="hidden" class="form-control dash-inp" name="username"
+													th:id="'username' + ${iterStat.index}" th:value="${user.username}" required>
+											</div>
+											<div class="mb-3">
+												<label for="email" class="form-label">Email</label> <input
+													type="email" class="form-control dash-inp" name="email"
+													th:id="'email' + ${iterStat.index}" th:value="${user.email}" required>
+											</div>
+											<div class="mb-3">
+												<label for="gender" class="form-label">Gender</label> <select
+													class="form-control dash-inp" name="gender" th:id="'gender' + ${iterStat.index}" required>
+													
+													<option th:if="${user.gender == 'male'}" value="male" selected>Male</option>
+													<option th:if="${user.gender == 'male'}" value="female">Female</option>
+													
+													<option th:if="${user.gender == 'female'}" value="male">Male</option>
+													<option th:if="${user.gender == 'female'}" value="female" selected>Female</option>
+													
+												</select>
+											</div>
+											<div class="mb-3">
+												<label for="age" class="form-label">Age</label> <input
+													type="number" min="1" max="150" class="form-control dash-inp"
+													name="age" th:id="'age' + ${iterStat.index}" th:value="${user.age}" required>
+											</div>
+											<div class="mb-3">
+												<label for="password" class="form-label">Password</label> <input
+													placeholder="Enter new password" type="password" minlength="8"
+													maxlength="128" class="form-control dash-inp" name="password"
+													th:id="'password' + ${iterStat.index}" >
+											</div>
+											<div class="d-flex justify-content-center modal-footer">
+												<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+													<svg class="feather">
+														<use th:href="@{/feather/feather-sprite.svg#x-circle}" /></svg>
+													Close
+												</button>
+												<button type="submit" class="btn btn-success">
+													<svg class="feather">
+														<use th:href="@{/feather/feather-sprite.svg#edit}" /></svg>
+													Update
+												</button>
+											</div>
+										</form>
+										<!-- Edit form end -->
+										
+									</div>
+									</div>
+								</div>
+								</div>
+								<!-- Modal end -->
+								
+								
+								<!-- Delete button -->
+								<button class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${iterStat.index}">
+											<svg class="feather">
+												<use th:href="@{/feather/feather-sprite.svg#user-x}" /></svg>
+											Delete
+								</button>
+
+								<!-- Modal -->
+								<div class="modal fade" th:id="'deleteModal' + ${iterStat.index}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header" data-bs-theme="dark" >
+										<h1 class="modal-title fs-5" id="exampleModalLabel">Delete user</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<p>Are you sure you want to delete user: <span th:text="${user.username}"></span>?</p>
+
+										<div class="d-flex justify-content-center modal-footer">
+												<button type="button" class="btn btn-success" data-bs-dismiss="modal">
+													<svg class="feather">
+														<use th:href="@{/feather/feather-sprite.svg#x-circle}" /></svg>
+													Close
+												</button>
+												<form th:action="@{|/allusers/delete/${user.username}|}" method="post">
+													<button type="submit" class="btn btn-danger">
+														<svg class="feather">
+															<use th:href="@{/feather/feather-sprite.svg#user-x}" /></svg>
+														Delete
+													</button>
+												</form>
+											</div>
+										
+										</div>
+									</div>
+									</div>
+								</div>
+								<!-- Modal end -->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- Pagination -->
+
+			<ul class="pagination d-flex justify-content-center my-5">
+				<li class="page-item" th:if="${usersPage.hasPrevious()}">
+					<a class="page-link btn btn-primary" th:href="@{|/allusers?pageNo=${usersPage.getNumber()}&pageSize=${usersPage.getSize()}&sortBy=${sortBy}|}">
+						<svg class="feather">
+							<use th:href="@{/feather/feather-sprite.svg#chevron-left}" /></svg>
+					</a>
+				</li>
+
+				<span th:each="i : ${#numbers.sequence(startingPagination, endingPagination)}">
+					<li class="page-item" th:classappend="${i} == ${usersPage.getNumber()} ? 'active'">
+						<a class="page-link btn btn-primary" th:href="@{|/allusers?pageNo=${i + 1}&pageSize=${usersPage.getSize()}&sortBy=${sortBy}|}"
+							th:text="${i + 1}"></a>
+					</li>
+				</span>
+
+				<li class="page-item" th:if="${usersPage.hasNext()}">
+					<a class="page-link btn btn-primary" th:href="@{|/allusers?pageNo=${usersPage.getNumber() + 2}&pageSize=${usersPage.getSize()}&sortBy=${sortBy}|}">
+						<svg class="feather">
+							<use th:href="@{/feather/feather-sprite.svg#chevron-right}" /></svg>
+					</a>
+				</li>
+			</ul>
+
+			<!-- Go to Page -->
+			<form class="d-flex justify-content-center mb-5" th:action="@{/allusers}" method="get">
+				<div class="input-group goto-inp">
+					<input type="number" min="1" th:max="${usersPage.getTotalPages()}" class="form-control dash-inp" name="pageNo" placeholder="Go to page" required>
+					<button class="btn btn-primary" type="submit">
+						<svg class="feather">
+							<use th:href="@{/feather/feather-sprite.svg#arrow-right}" /></svg>
+					</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+	<!-- Main Body End -->
+
+	<!-- BootStrap JS -->
+	<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+</body>
+</html>

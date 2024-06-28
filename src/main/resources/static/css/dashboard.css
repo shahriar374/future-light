@@ -1,29 +1,21 @@
-.signup-inp {
+.dash-inp {
 	background: #ff00 !important;
 	color: #fff !important;
 }
 
-.signup-inp:focus {
+.dash-inp:focus {
 	border-color: #32ee88;
 	box-shadow: 0 0 0 .25rem rgba(50, 238, 136, 0.07);
 }
 
-.signup-form-wrapper {
-	margin-top: 50px;
-	margin-bottom: 150px;
+.dash-inp::placeholder {
+	color: #fff !important;
 }
 
-.future-light-logo {
-	width: 250px;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
-
-
 
 option {
 	background: var(--custom-primary) !important;
