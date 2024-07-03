@@ -11,10 +11,10 @@ To run this project in local environment, clone this repository and open with an
 ## Running the project in local environment
 This project uses **Maven** as build tool. Use maven to resolve all required dependencies. Most of the compatible IDE will automatically resolve these dependencies.
 
-Before running this project, run a MySQL server and import necessary tables and data using `default-schema.sql` Self-Contained file (MySQL Workbench has data import functionality). 
+Before running this project, run a MySQL server and import necessary tables and data using `default-schema.sql` file. 
 
 ### Importing schema to MySQL
-Open MySQL Workbench and run the server. Then `Server > Data Import > Import from Disk > Import from Self-Contained file`. Select the `default-schema.sql` file and press `Start Import`
+Open MySQL Workbench and run the server. Then create a schema named `futurelight` and run the `default-schema.sql` file.
 
 Executing this file will automatically create necessary tables and an `admin` user with password `password`.
 
