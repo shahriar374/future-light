@@ -16,15 +16,13 @@
 			<h1 class="mt-5 poppins-bold">Disease Recognition</h1>
 
 			<form class="row" th:action="@{/disease-result}" method="post" >
-				<div class="col-md-8">
-					<div class="my-5 text-start">
-						<label for="dna-sequence" class="form-label">Enter DNA Sequence</label> 
-						<textarea class="form-control disease-inp" id="dna-sequence" name="dna-sequence" rows="6" placeholder="ACGCTAGGGACGTGAAGTCGA....." required></textarea>
-					</div>
+				<div class="col-md-8 my-5 text-start">
+					<label for="dna-sequence" class="form-label">Enter DNA Sequence</label> 
+					<textarea class="form-control disease-inp" id="dna-sequence" name="dna-sequence" rows="6" placeholder="ACGCTAGGGACGTGAAGTCGA....." required></textarea>
 				</div>
 				<div class="col-md-4 d-flex align-items-center justify-content-center">
 					<button type="submit" class="btn btn-primary btn-disease">
-						<dotlottie-player th:src="@{/images/lottie/dna.lottie}" background="transparent" speed="1"
+						<dotlottie-player th:src="@{/images/lottie/target.lottie}" background="transparent" speed="1"
 						style="width: 150px; height: 150px;" loop autoplay></dotlottie-player>
 						<p class="poppins-bold">Recognize</p>
 					</button>

@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org" lang="en"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	
-<head th:insert="~{layout :: head(title='Disease Recognition Result', localcss='diseaseresult.css')}"></head>
+<head th:insert="~{layout :: head(title='Gene Reconstruction Result', localcss='diseaseresult.css')}"></head>
 
 <body>
 	<!-- Navbar -->
@@ -28,7 +28,7 @@
 	<div class="container">
 		<div class="row text-center justify-content-center">
 
-			<h1 class="my-5 poppins-bold">Disease Recognition Result</h1>
+			<h1 class="my-5 poppins-bold">Gene Reconstruction Result</h1>
 
 			<div class="row">
 				<div class="col-md-10">
@@ -42,21 +42,26 @@
 						<p class="poppins-bold">Email: </p><span th:text="${user.email}"></span>
 					</div>
 					<div class="mb-2">
-						<p class="poppins-bold">Entered DNA Sequence: </p>
-						<span th:text="${dnaSequence}"></span>
+						<p class="poppins-bold">Users DNA Sequence: </p>
+						<span th:text="${userDnaSequence}"></span>
 					</div>
-					
-					<div class="predicted-diseases mt-3">
-						<h2>Predicted Diseases:</h2>
+					<div class="mb-2">
+						<p class="poppins-bold">Partners DNA Sequence: </p>
+						<span th:text="${partnerDnaSequence}"></span>
+					</div>
 
-						<th:block th:each="disease : ${diseasePrediction}">
-							<input type="hidden" class="d-none disease-data" th:value="${disease.value}"></input>
-						</th:block>
+                    <div class="reconstructed-dna mt-3">
+						<h2>Reconstructed DNA:</h2>
+
+						<div class="reconstructed-dna-sequence">
+                            <p class="text-break" th:text="${reconstructedDnaSequence}"></p>
+                        </div>
 
 						<!-- Predicted disease chart -->
 						<canvas class="my-4" id="myChart"></canvas>
 
 					</div>
+					
 				</div>
 				<div class="col-md-2">
 					<button class="btn btn-success my-2">
@@ -85,7 +90,6 @@
 
 	<!-- Custom JS -->
 	<script th:src="@{/js/loading.js}"></script>
-	<script th:src="@{/js/diseaseresult.js}"></script>
 
 </body>
 </html>
