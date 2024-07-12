@@ -38,6 +38,7 @@ public class SecurityConfig {
 				.requestMatchers("/feather/**").permitAll()
 				.requestMatchers("/images/*").permitAll()
 				.requestMatchers("/images/favicon/*").permitAll()
+				.requestMatchers("/images/lottie/*").permitAll()
 				.requestMatchers("/js/*").hasAnyRole("USER", "ADMIN")
 				.anyRequest().authenticated())
 				.formLogin(login -> login

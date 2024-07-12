@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="~{layout :: head(title='Gene Reconstruction', localcss='gene.css')}"></head>
+
+<body>
+	<!-- Navbar -->
+	<th:block th:replace="~{layout :: navbar}"></th:block>
+
+	<!-- Main Body Start -->
+	<div class="container">
+		<div class="row text-center justify-content-center">
+
+			<h1 class="mt-5 poppins-bold">Gene Reconstruction</h1>
+
+			<form class="row" th:action="@{/gene-result}" method="post">
+				<div class="col-md-8 my-5 text-start">
+					<label for="user-dna-sequence" class="form-label">Enter Your DNA Sequence</label>
+					<textarea class="form-control disease-inp" id="user-dna-sequence" name="user-dna-sequence" rows="5"
+						placeholder="ACGCTAGGGACGTGAAGTCGA....." required></textarea>
+					<label for="partner-dna-sequence" class="form-label mt-4">Enter Partners DNA Sequence</label>
+					<textarea class="form-control disease-inp" id="partner-dna-sequence" name="partner-dna-sequence" rows="5"
+						placeholder="ACGCTAGGGACGTGAAGTCGA....." required></textarea>
+				</div>
+				<div class="col-md-4 d-flex align-items-center justify-content-center">
+					<button type="submit" class="btn btn-primary btn-disease">
+						<dotlottie-player th:src="@{/images/lottie/dna.lottie}" background="transparent" speed="1"
+							style="width: 150px; height: 150px;" loop autoplay></dotlottie-player>
+						<p class="poppins-bold">Reconstruction</p>
+					</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+	<!-- Main Body End -->
+
+	<!-- BootStrap JS -->
+	<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+
+	<!-- Dotlottie JS -->
+	<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
+
+</body>
+
+</html>

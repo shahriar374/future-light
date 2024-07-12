@@ -1,0 +1,62 @@
+.user-info {
+    background-color: var(--custom-success);
+    color: var(--custom-dark);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.profile-pic {
+    border: 5px solid var(--custom-dark);
+    border-radius: 60px;
+    width: 120px;
+    height: 120px;
+}
+
+.profile-pic .feather {
+    width: 100px;
+    height: 100px;
+    stroke-width: 1;
+}
+
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+    .function-buttons a {
+        margin-top: 10px !important;
+        margin-bottom: 10px !important;
+    }
+    
+}
+
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+    .function-buttons a {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .outer-wrapper {
+        padding: 0px 20px;
+    }
+    
+    .function-buttons {
+        margin-top: 20px !important;
+    }
+
+    .function-buttons-outer-wrapper {
+        margin: 30px 0;
+    }
+
+}
+

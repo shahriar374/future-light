@@ -11,9 +11,90 @@
 
 	<!-- Main Body Start -->
 	<div class="container">
-		<div class="row text-center">
+		<!-- Anonymous user view -->
+		<div sec:authorize="isAnonymous()" class="row text-center justify-content-center">
 
 			<h1 class="mt-5 poppins-bold">Welcome to Future Light</h1>
+
+			<div class="row my-5">
+				<div class="col-md-6">
+					<div class="disease-recognition">
+						<div class="d-flex justify-content-center">
+							<dotlottie-player th:src="@{/images/lottie/dna.lottie}" background="transparent" speed="1"
+							style="width: 200px; height: 200px;" loop autoplay></dotlottie-player>
+						</div>
+						
+						<h3 class="poppins-bold">Disease Recognition</h3>
+						<p>
+							Recognize diseases from the given DNA sequence
+						</p>
+						<a th:href="@{/disease-recognition}" class="btn btn-primary">
+							<svg class="feather">
+								<use th:href="@{/feather/feather-sprite.svg#crosshair}" /></svg>
+							Start</a>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="gene-reconstruction">
+						<div class="d-flex justify-content-center">
+							<dotlottie-player th:src="@{/images/lottie/target.lottie}" background="transparent" speed="1"
+							style="width: 200px; height: 200px;" loop autoplay></dotlottie-player>
+						</div>
+
+						<h3 class="poppins-bold">Gene Reconstruction</h3>
+						<p>
+							Reconstruct genes from the given DNA sequence
+						</p>
+						<a th:href="@{/gene-reconstruction}" class="btn btn-primary">
+							<svg class="feather">
+								<use th:href="@{/feather/feather-sprite.svg#tool}" /></svg>
+							Start</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Authenticated user view -->
+		<div sec:authorize="isAuthenticated()" class="row outer-wrapper text-center mt-5">
+
+			<div class="col-md-4 user-info d-flex flex-column justify-content-center align-items-center">
+				<h3 class="poppins-bold">
+					Welcome<br>
+					<span th:text="${#authentication.name}"></span>
+				</h3>
+
+				<div class="profile-pic my-3">
+					<svg class="feather">
+						<use th:href="@{/feather/feather-sprite.svg#user}" /></svg>
+				</div>
+
+				<p>
+					<strong>Full Name:</strong> <span th:text="${user.fullname}"></span> <br>
+					<strong>Email:</strong> <span th:text="${user.email}"></span> <br>
+					<strong>Gender:</strong> <span th:text="${user.gender}"></span> <br>
+					<strong>Age:</strong> <span th:text="${user.age}"></span>
+				</p>
+			</div>
+
+			<div class="col-md-8 function-buttons-outer-wrapper d-flex flex-column justify-content-center">
+				<h3 class="poppins-bold">Choose a feature to use</h3>
+
+				<div class="function-buttons mt-5">
+					<a th:href="@{/disease-recognition}" class="btn btn-primary mx-3">
+						<svg class="feather">
+							<use th:href="@{/feather/feather-sprite.svg#crosshair}" /></svg>
+						Disease Recognition</a>
+					<a th:href="@{/gene-reconstruction}" class="btn btn-primary mx-3">
+						<svg class="feather">
+							<use th:href="@{/feather/feather-sprite.svg#tool}" /></svg>
+						Gene Reconstruction</a>
+					<a th:href="@{/statistics}" class="btn btn-primary mx-3">
+						<svg class="feather">
+							<use th:href="@{/feather/feather-sprite.svg#bar-chart-2}" /></svg>
+						Statistics</a>
+				</div>
+			</div>
 
 		</div>
 	</div>
@@ -21,5 +102,9 @@
 
 	<!-- BootStrap JS -->
 	<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+
+	<!-- Dotlottie JS -->
+	<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
 </body>
 </html>
