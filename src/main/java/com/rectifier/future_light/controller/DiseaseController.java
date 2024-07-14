@@ -22,7 +22,10 @@ public class DiseaseController {
     DiseaseService diseaseService;
 
     @PostMapping("/disease-result")
-    public String diseaseResult(@RequestParam("dna-sequence") String dnaSequence, Model m) {
+    public String diseaseResult(
+        @RequestParam("dna-sequence") String dnaSequence,
+        @RequestParam("generated-protein") String generatedProtein,
+        Model m) {
         Users user = userService.getCurrentUser();
         int age = user.getAge();
 
@@ -30,6 +33,7 @@ public class DiseaseController {
 
         m.addAttribute("user", user);
         m.addAttribute("dnaSequence", dnaSequence);
+        m.addAttribute("generatedProtein", generatedProtein);
         m.addAttribute("diseasePrediction", diseasePrediction);
 
         return "diseaseresult";

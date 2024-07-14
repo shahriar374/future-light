@@ -26,4 +26,6 @@
      opacity: 1;
  }
 
- 
+ .outer-wrapper span {
+     overflow-wrap: break-word;
+ }
