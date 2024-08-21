@@ -45,14 +45,35 @@
 .user-message {
 	align-self: flex-end;
 	text-align: right;
+	width: auto;
+	max-width: 45%;
 }
 
 .bot-message {
 	align-self: flex-start;
 	text-align: left;
+	width: auto;
+	max-width: 45%;
 }
 
 .input-group {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+	.user-message {
+		max-width: 85%;
+	}
+	
+	.bot-message {
+		max-width: 85%;
+	}
+	
+  }

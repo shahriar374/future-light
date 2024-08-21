@@ -44,7 +44,7 @@ function displayUserMessage(userInput) {
 function displayBotMessage(response) {
     const botMessage = document.createElement('div');
     botMessage.classList.add('message', 'bot-message', 'btn', 'btn-success');
-    botMessage.innerText = response.message;
+    botMessage.innerHTML = response.message;
     document.getElementById('chatContainer').appendChild(botMessage);
 }
 

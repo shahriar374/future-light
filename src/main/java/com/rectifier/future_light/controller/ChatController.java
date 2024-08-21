@@ -3,6 +3,7 @@ package com.rectifier.future_light.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rectifier.future_light.service.GeminiChatService;
+
 @Controller
 public class ChatController {
+
+	@Autowired
+	private GeminiChatService geminiChatService;
 
 	@GetMapping("/chat")
 	public String chatGet() {
@@ -31,8 +37,10 @@ public class ChatController {
 	}
 
 	private String generateResponse(String userMessage) {
-		// Placeholder logic for generating a response
-		return "You said: " + userMessage;
+
+		String response = geminiChatService.generateResponse(userMessage);
+
+		return response;
 	}
 
 }
