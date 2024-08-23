@@ -1,6 +1,7 @@
 package com.rectifier.future_light.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rectifier.future_light.model.ChatMessage;
 import com.rectifier.future_light.service.ChatService;
 import com.rectifier.future_light.service.GeminiChatService;
+import com.rectifier.future_light.service.MarkdownService;
 import com.rectifier.future_light.service.UserService;
 
 @Controller
@@ -28,10 +31,19 @@ public class ChatController {
 	@Autowired
 	GeminiChatService geminiChatService;
 
+	@Autowired
+	MarkdownService markdownService;
+
 	@GetMapping("/chat")
 	public String chatGet(Model m) {
 
-		m.addAttribute("chatHistory", chatService.getChatHistory(userService.getCurrentUser().getUsername()));
+		List<ChatMessage> chatHistory = chatService.getChatHistory(userService.getCurrentUser().getUsername());
+
+		for (ChatMessage chat : chatHistory) {
+			chat.setMessage(markdownService.convertToHtml(chat.getMessage()));
+		}
+
+		m.addAttribute("chatHistory", chatHistory);
 
 		return "chat";
 	}

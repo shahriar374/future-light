@@ -27,7 +27,7 @@ public class ChatService {
     public ChatMessage saveBotMessage(String username, String message) {
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setUsername(username);
-        chatMessage.setSender("bot");
+        chatMessage.setSender("model");
         chatMessage.setMessage(message);
         chatMessage.setTimestamp(LocalDateTime.now());
         return chatMessageRepository.save(chatMessage);
