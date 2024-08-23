@@ -35,7 +35,7 @@ function sendMessage() {
 
 function displayUserMessage(userInput) {
     const userMessage = document.createElement('div');
-    userMessage.classList.add('message', 'user-message', 'btn', 'btn-secondary');
+    userMessage.classList.add('message', 'user-message');
     userMessage.innerText = userInput;
     document.getElementById('chatContainer').appendChild(userMessage);
     document.getElementById('userInput').value = '';
@@ -43,7 +43,7 @@ function displayUserMessage(userInput) {
 
 function displayBotMessage(response) {
     const botMessage = document.createElement('div');
-    botMessage.classList.add('message', 'bot-message', 'btn', 'btn-success');
+    botMessage.classList.add('message', 'bot-message');
     botMessage.innerHTML = response.message;
     document.getElementById('chatContainer').appendChild(botMessage);
 }

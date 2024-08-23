@@ -47,6 +47,7 @@
 	text-align: right;
 	width: auto;
 	max-width: 45%;
+	background: var(--custom-secondary);
 }
 
 .bot-message {
@@ -54,6 +55,8 @@
 	text-align: left;
 	width: auto;
 	max-width: 45%;
+	background: var(--custom-success);
+	color: var(--custom-dark);
 }
 
 .input-group {

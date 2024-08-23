@@ -3,6 +3,8 @@ package com.rectifier.future_light.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -12,7 +14,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class GeminiChatService {
 
     @Autowired
-    MarkdownService markdownService;
+    private MarkdownService markdownService;
+
+    @Autowired
+    private ChatService chatService;
 
     private final WebClient webClient;
 
@@ -44,7 +49,13 @@ public class GeminiChatService {
                 .bodyToMono(String.class)
                 .block();
 
-        return extractTextFromResponse(response);
+        // Saving USER response to DB
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        chatService.saveUserMessage(authentication.getName(), userMessage);
+
+        String extractedText = extractTextFromResponse(response);
+
+        return extractedText;
     }
 
     private String extractTextFromResponse(String jsonResponse) {
@@ -54,7 +65,11 @@ public class GeminiChatService {
             JsonNode candidatesNode = rootNode.path("candidates").get(0);
             JsonNode textNode = candidatesNode.path("content").path("parts").get(0).path("text");
             String response = markdownService.convertToHtml(textNode.asText());
-            
+
+            // Saving BOT response to DB
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            chatService.saveBotMessage(authentication.getName(), textNode.asText());
+
             return response;
         } catch (Exception e) {
             e.printStackTrace();
