@@ -20,6 +20,9 @@
 
 		<div class="chat-container" id="chatContainer">
 			<!-- Messages will be appended here -->
+			<div th:each="message : ${chatHistory}" th:class="'message' + ${message.sender == 'user' ? ' user-message' : ' bot-message'}">
+				<p th:text="${message.message}"></p>
+			</div>
 		</div>
 		<div class="input-group">
 			<input type="text" class="form-control chat-inp rounded me-3"

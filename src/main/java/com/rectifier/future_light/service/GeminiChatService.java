@@ -3,8 +3,6 @@ package com.rectifier.future_light.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -18,6 +16,9 @@ public class GeminiChatService {
 
     @Autowired
     private ChatService chatService;
+
+    @Autowired
+	UserService userService;
 
     private final WebClient webClient;
 
@@ -50,8 +51,7 @@ public class GeminiChatService {
                 .block();
 
         // Saving USER response to DB
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        chatService.saveUserMessage(authentication.getName(), userMessage);
+        chatService.saveUserMessage(userService.getCurrentUser().getUsername(), userMessage);
 
         String extractedText = extractTextFromResponse(response);
 
@@ -67,8 +67,7 @@ public class GeminiChatService {
             String response = markdownService.convertToHtml(textNode.asText());
 
             // Saving BOT response to DB
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            chatService.saveBotMessage(authentication.getName(), textNode.asText());
+            chatService.saveBotMessage(userService.getCurrentUser().getUsername(), textNode.asText());
 
             return response;
         } catch (Exception e) {

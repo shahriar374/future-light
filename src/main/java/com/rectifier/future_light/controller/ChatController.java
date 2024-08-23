@@ -6,21 +6,33 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rectifier.future_light.service.ChatService;
 import com.rectifier.future_light.service.GeminiChatService;
+import com.rectifier.future_light.service.UserService;
 
 @Controller
 public class ChatController {
 
 	@Autowired
-	private GeminiChatService geminiChatService;
+	UserService userService;
+
+	@Autowired
+	ChatService chatService;
+
+	@Autowired
+	GeminiChatService geminiChatService;
 
 	@GetMapping("/chat")
-	public String chatGet() {
+	public String chatGet(Model m) {
+
+		m.addAttribute("chatHistory", chatService.getChatHistory(userService.getCurrentUser().getUsername()));
+
 		return "chat";
 	}
 

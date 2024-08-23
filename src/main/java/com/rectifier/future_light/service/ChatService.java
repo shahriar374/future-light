@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rectifier.future_light.model.ChatMessage;
-import com.rectifier.future_light.model.ChatMessage.Sender;
 import com.rectifier.future_light.repository.ChatMessageRepository;
 
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ public class ChatService {
     public ChatMessage saveUserMessage(String username, String message) {
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setUsername(username);
-        chatMessage.setSender(Sender.USER);
+        chatMessage.setSender("user");
         chatMessage.setMessage(message);
         chatMessage.setTimestamp(LocalDateTime.now());
         return chatMessageRepository.save(chatMessage);
@@ -28,7 +27,7 @@ public class ChatService {
     public ChatMessage saveBotMessage(String username, String message) {
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.setUsername(username);
-        chatMessage.setSender(Sender.BOT);
+        chatMessage.setSender("bot");
         chatMessage.setMessage(message);
         chatMessage.setTimestamp(LocalDateTime.now());
         return chatMessageRepository.save(chatMessage);

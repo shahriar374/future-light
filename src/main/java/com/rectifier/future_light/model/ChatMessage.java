@@ -2,8 +2,6 @@ package com.rectifier.future_light.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,8 +21,7 @@ public class ChatMessage {
     private String username;
 
     @Column(name = "sender")
-    @Enumerated(EnumType.STRING)
-    private Sender sender;
+    private String sender;
 
     @Column(name = "message")
     private String message;
@@ -49,11 +46,11 @@ public class ChatMessage {
         this.username = username;
     }
 
-    public Sender getSender() {
+    public String getSender() {
         return sender;
     }
 
-    public void setSender(Sender sender) {
+    public void setSender(String sender) {
         this.sender = sender;
     }
 
@@ -73,7 +70,4 @@ public class ChatMessage {
         this.timestamp = timestamp;
     }
 
-    public enum Sender {
-        USER, BOT
-    }
 }
