@@ -15,7 +15,7 @@ function sendMessage() {
         xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
 
         // Response recieved from the server
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var response = JSON.parse(xhr.responseText);
                 displayBotMessage(response);
@@ -54,7 +54,26 @@ function scrollToBottom() {
 }
 
 function handleKeyPress(event) {
-	if (event.key === 'Enter') {
-		sendMessage();
-	}
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+}
+
+function deleteChat() {
+    const messages = document.querySelectorAll('.message');
+
+    for (let i = 0; i < messages.length; i++) {
+        messages[i].remove();
+    }
+
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+    fetch(`${window.location.origin}/chat`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
+        },
+    })    
+
 }

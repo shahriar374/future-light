@@ -52,7 +52,7 @@ public class GeminiChatService {
                               }
                             ]
                         },
-                    """.formatted(chat.getSender(), chat.getMessage());
+                    """.formatted(formatMultilineString(chat.getSender()), formatMultilineString(chat.getMessage()));
             contentBody += s;
         }
 
@@ -79,6 +79,8 @@ public class GeminiChatService {
                         }
                       }
                 """.formatted(contentBody);
+
+                System.out.println(jsonBody);
 
         String response = webClient.post()
                 .uri(endpoint)
@@ -109,6 +111,15 @@ public class GeminiChatService {
             e.printStackTrace();
             return "Error extracting response text";
         }
+    }
+
+    public static String formatMultilineString(String input) {
+      return input
+              .replace("\\", "\\\\") // Escape backslashes
+              .replace("\"", "\\\"") // Escape double quotes
+              .replace("\r\n", "\\n") // Replace CRLF line breaks with \n
+              .replace("\n", "\\n") // Replace LF line breaks with \n
+              .trim(); // Remove leading/trailing whitespace
     }
 
 }

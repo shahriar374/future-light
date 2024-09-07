@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.rectifier.future_light.model.ChatMessage;
 import com.rectifier.future_light.repository.ChatMessageRepository;
 
+import jakarta.transaction.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,6 +37,11 @@ public class ChatService {
 
     public List<ChatMessage> getChatHistory(String username) {
         return chatMessageRepository.findByUsernameOrderByTimestamp(username);
+    }
+
+    @Transactional
+    public void deleteChatHistory(String username) {
+        chatMessageRepository.deleteByUsername(username);
     }
 
 }

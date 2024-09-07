@@ -64,6 +64,12 @@
 	margin-bottom: 20px;
 }
 
+.chat-nav-wrapper {
+	display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+}
+
 /* 
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
