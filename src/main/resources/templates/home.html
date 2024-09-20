@@ -58,24 +58,26 @@
 		<!-- Authenticated user view -->
 		<div sec:authorize="isAuthenticated()" class="row outer-wrapper text-center mt-5">
 
-			<div class="col-md-4 user-info d-flex flex-column justify-content-center align-items-center">
-				<h3 class="poppins-bold">
-					Welcome<br>
-					<span th:text="${#authentication.name}"></span>
-				</h3>
+			<a class="col-md-4" th:href="@{/dashboard}">
+				<div class="user-info d-flex flex-column justify-content-center align-items-center">
+					<h3 class="poppins-bold">
+						Welcome<br>
+						<span th:text="${#authentication.name}"></span>
+					</h3>
 
-				<div class="profile-pic my-3">
-					<svg class="feather">
-						<use th:href="@{/feather/feather-sprite.svg#user}" /></svg>
+					<div class="profile-pic my-3">
+						<svg class="feather">
+							<use th:href="@{/feather/feather-sprite.svg#user}" /></svg>
+					</div>
+
+					<p>
+						<strong>Full Name:</strong> <span th:text="${user.fullname}"></span> <br>
+						<strong>Email:</strong> <span th:text="${user.email}"></span> <br>
+						<strong>Gender:</strong> <span th:text="${user.gender}"></span> <br>
+						<strong>Age:</strong> <span th:text="${user.age}"></span>
+					</p>
 				</div>
-
-				<p>
-					<strong>Full Name:</strong> <span th:text="${user.fullname}"></span> <br>
-					<strong>Email:</strong> <span th:text="${user.email}"></span> <br>
-					<strong>Gender:</strong> <span th:text="${user.gender}"></span> <br>
-					<strong>Age:</strong> <span th:text="${user.age}"></span>
-				</p>
-			</div>
+			</a>
 
 			<div class="col-md-8 function-buttons-outer-wrapper d-flex flex-column justify-content-center">
 				<h3 class="poppins-bold">Choose a feature to use</h3>

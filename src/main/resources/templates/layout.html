@@ -56,13 +56,13 @@
 					Chat</button>
 				</a>
 				
-				<a th:if="${isDashboard == null}" sec:authorize="isAuthenticated()" th:href="@{/dashboard}">
+				<a th:if="${isDashboard == null}" sec:authorize="isAuthenticated()" th:href="@{/dashboard}" class="hide-mobile">
 					<button class="btn btn-secondary me-2">
 					<svg class="feather hide-mobile"><use th:href="@{/feather/feather-sprite.svg#user}" /></svg>
-					Dashboard</button>
+					Profile</button>
 				</a>
 				
-				<form th:if="${isDashboard == true}" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" >
+				<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" >
 					<button type="submit" class="btn btn-secondary">
 					<svg class="feather hide-mobile"><use th:href="@{/feather/feather-sprite.svg#log-out}" /></svg>
 					Sign out</button>
