@@ -4,6 +4,8 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,7 +21,8 @@ public class SecurityConfig {
 
 	@Bean
 	JdbcUserDetailsManager jdbcUserDetailsManager(DataSource datasource) {
-		return new JdbcUserDetailsManager(datasource);
+		JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(datasource);
+		return userDetailsManager;
 	}
 
 	@Bean
@@ -42,15 +45,18 @@ public class SecurityConfig {
 				.requestMatchers("/js/*").hasAnyRole("USER", "ADMIN")
 				.anyRequest().authenticated())
 				.formLogin(login -> login
-				.loginPage("/signin")
-			    .failureUrl("/signin?error")
-				.permitAll())
+						.loginPage("/signin")
+						.failureUrl("/signin?error")
+						.permitAll())
 				.logout(logout -> logout
-				.logoutSuccessUrl("/signin?logout")
-				.permitAll()
-				);
+						.logoutSuccessUrl("/signin?logout")
+						.permitAll());
 
 		return http.build();
 	}
+
+    AuthenticationManager authenticationManager() throws Exception {
+        return new AuthenticationConfiguration().getAuthenticationManager();
+    }
 
 }

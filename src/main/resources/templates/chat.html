@@ -11,15 +11,22 @@
 
 	<div class="container chat-wrapper">
 		<!-- Nav -->
-		<div class="d-flex justify-content-center">
+		<div class="d-flex chat-nav-wrapper">
 			<a th:href="@{/}"> <img th:src="@{/images/logo-cropped.png}"
 				class="logo">
 			</a>
+			<button class="btn btn-danger" onclick="deleteChat()">
+				<svg class="feather hide-mobile"><use th:href="@{/feather/feather-sprite.svg#trash-2}" /></svg>
+				Delete Chat
+			</button>
 		</div>
 
 
 		<div class="chat-container" id="chatContainer">
 			<!-- Messages will be appended here -->
+			<div th:each="message : ${chatHistory}" th:class="'message' + ${message.sender == 'user' ? ' user-message' : ' bot-message'}">
+				<div th:utext="${message.message}"></div>
+			</div>
 		</div>
 		<div class="input-group">
 			<input type="text" class="form-control chat-inp rounded me-3"

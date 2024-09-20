@@ -15,7 +15,7 @@ function sendMessage() {
         xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
 
         // Response recieved from the server
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 var response = JSON.parse(xhr.responseText);
                 displayBotMessage(response);
@@ -35,7 +35,7 @@ function sendMessage() {
 
 function displayUserMessage(userInput) {
     const userMessage = document.createElement('div');
-    userMessage.classList.add('message', 'user-message', 'btn', 'btn-secondary');
+    userMessage.classList.add('message', 'user-message');
     userMessage.innerText = userInput;
     document.getElementById('chatContainer').appendChild(userMessage);
     document.getElementById('userInput').value = '';
@@ -43,8 +43,8 @@ function displayUserMessage(userInput) {
 
 function displayBotMessage(response) {
     const botMessage = document.createElement('div');
-    botMessage.classList.add('message', 'bot-message', 'btn', 'btn-success');
-    botMessage.innerText = response.message;
+    botMessage.classList.add('message', 'bot-message');
+    botMessage.innerHTML = response.message;
     document.getElementById('chatContainer').appendChild(botMessage);
 }
 
@@ -54,7 +54,29 @@ function scrollToBottom() {
 }
 
 function handleKeyPress(event) {
-	if (event.key === 'Enter') {
-		sendMessage();
-	}
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
 }
+
+function deleteChat() {
+    const messages = document.querySelectorAll('.message');
+
+    for (let i = 0; i < messages.length; i++) {
+        messages[i].remove();
+    }
+
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+    fetch(`${window.location.origin}/chat`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
+        },
+    })    
+
+}
+
+// Scroll to bottom of the chat box when the page is loaded
+window.onload = scrollToBottom();
