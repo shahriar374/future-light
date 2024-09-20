@@ -77,3 +77,6 @@ function deleteChat() {
     })    
 
 }
+
+// Scroll to bottom of the chat box when the page is loaded
+window.onload = scrollToBottom();
