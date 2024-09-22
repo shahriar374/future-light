@@ -19,41 +19,43 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-	@Bean
-	JdbcUserDetailsManager jdbcUserDetailsManager(DataSource datasource) {
-		JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(datasource);
-		return userDetailsManager;
-	}
+    @Bean
+    JdbcUserDetailsManager jdbcUserDetailsManager(DataSource datasource) {
+        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(datasource);
+        return userDetailsManager;
+    }
 
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		http.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/").permitAll()
-				.requestMatchers("/signup").permitAll()
-				.requestMatchers("/signup/save").permitAll()
-				.requestMatchers("/css/*").permitAll()
-				.requestMatchers("/feather/**").permitAll()
-				.requestMatchers("/images/*").permitAll()
-				.requestMatchers("/images/favicon/*").permitAll()
-				.requestMatchers("/images/lottie/*").permitAll()
-				.requestMatchers("/js/*").hasAnyRole("USER", "ADMIN")
-				.anyRequest().authenticated())
-				.formLogin(login -> login
-						.loginPage("/signin")
-						.failureUrl("/signin?error")
-						.permitAll())
-				.logout(logout -> logout
-						.logoutSuccessUrl("/signin?logout")
-						.permitAll());
+        http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/signup").permitAll()
+                        .requestMatchers("/signup/save").permitAll()
+                        .requestMatchers("/css/*").permitAll()
+                        .requestMatchers("/feather/**").permitAll()
+                        .requestMatchers("/images/*").permitAll()
+                        .requestMatchers("/images/favicon/*").permitAll()
+                        .requestMatchers("/images/lottie/*").permitAll()
+                        .requestMatchers("/blog").permitAll()
+                        .requestMatchers("/uploads/*").permitAll()
+                        .requestMatchers("/js/*").hasAnyRole("USER", "ADMIN")
+                        .anyRequest().authenticated())
+                .formLogin(login -> login
+                        .loginPage("/signin")
+                        .failureUrl("/signin?error")
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/signin?logout")
+                        .permitAll());
 
-		return http.build();
-	}
+        return http.build();
+    }
 
     AuthenticationManager authenticationManager() throws Exception {
         return new AuthenticationConfiguration().getAuthenticationManager();

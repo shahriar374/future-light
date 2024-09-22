@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="~{layout :: head(title='Add post to Future Light Blog', localcss='addpost.css')}"></head>
+
+<body>
+<!-- Navbar -->
+<th:block th:replace="~{layout :: navbar}"></th:block>
+
+<!-- Main Body Start -->
+<div class="container">
+    <div class="row text-center">
+
+        <h1 class="mt-5 poppins-bold">Add Post</h1>
+
+    </div>
+
+    <!--  Post added success toast  -->
+
+    <div th:if="${param.added}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <p>Post added successfully</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <!--  Add post form  -->
+    <div class="row my-5">
+        <div class="col-md-12">
+            <form th:action="@{/blog/add}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control add-post-inp" id="title" name="title" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="content">Content</label>
+                    <textarea class="form-control add-post-inp" id="content" name="content" rows="8"
+                              required></textarea>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="bannerImage">Banner Image</label> <br>
+                    <input type="file" class="form-control-file add-post-inp" id="bannerImage" name="bannerImage"
+                           required>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mt-3">Add Post</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>
+<!-- Main Body End -->
+
+<!-- BootStrap JS -->
+<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+</body>
+</html>
