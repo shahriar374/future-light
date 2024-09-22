@@ -1,0 +1,15 @@
+.post-body img {
+    border-radius: 20px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.post-body p {
+    text-align: justify;
+}
+
+.author {
+    text-align: center!important;
+    font-weight: bold;
+    color: var(--custom-success);
+}

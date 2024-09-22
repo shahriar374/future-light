@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/images/lottie/*").permitAll()
                         .requestMatchers("/blog").permitAll()
                         .requestMatchers("/uploads/*").permitAll()
+                        .requestMatchers("/post/*").permitAll()
                         .requestMatchers("/js/*").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(login -> login

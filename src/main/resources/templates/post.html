@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="~{layout :: head(title=${singlePost.title}, localcss='post.css')}"></head>
+
+<body>
+<!-- Navbar -->
+<th:block th:replace="~{layout :: navbar}"></th:block>
+
+<!-- Main Body Start -->
+<div class="container">
+  <div class="row text-center post-body">
+    <img th:src="@{'/uploads/' + ${singlePost.bannerImagePath}}" class="post-img-top" alt="...">
+    <h1 class="my-4 poppins-bold" th:text="${singlePost.title}">Title</h1>
+    <p th:text="'By ' + ${singlePost.author.fullname}" class="author">Author</p>
+    <p th:text="${singlePost.content}">Description</p>
+  </div>
+</div>
+<!-- Main Body End -->
+
+<!-- BootStrap JS -->
+<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+</body>
+</html>

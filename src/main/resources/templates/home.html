@@ -59,16 +59,16 @@
         <a th:href="@{/blog}"><h3 class="poppins-bold my-5 blog-link">Blog</h3></a>
 
         <!-- Swiper -->
-        <div class="swiper mySwiper2">
+        <div class="swiper mySwiper2 mb-5">
             <div class="swiper-wrapper">
 
                 <div th:each="post : ${latestPosts}" class="swiper-slide">
-                    <div class="card justify-content-end"
-                         th:style="'background-image: url(/uploads/' + ${post.bannerImagePath} + ');'">
+                    <a th:href="@{'/post/' + ${post.id}}" class="card justify-content-end"
+                       th:style="'background-image: url(/uploads/' + ${post.bannerImagePath} + ');'">
                         <div class="card-content">
                             <h3 class="card-title" th:text="${post.title}"></h3>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
             </div>
@@ -127,16 +127,16 @@
             <a th:href="@{/blog}"><h3 class="poppins-bold my-5 blog-link">Blog</h3></a>
 
             <!-- Swiper -->
-            <div class="swiper mySwiper">
+            <div class="swiper mySwiper mb-5">
                 <div class="swiper-wrapper">
 
                     <div th:each="post : ${latestPosts}" class="swiper-slide">
-                        <div class="card justify-content-end"
-                             th:style="'background-image: url(/uploads/' + ${post.bannerImagePath} + ');'">
+                        <a th:href="@{'/post/' + ${post.id}}" class="card justify-content-end"
+                           th:style="'background-image: url(/uploads/' + ${post.bannerImagePath} + ');'">
                             <div class="card-content">
                                 <h3 class="card-title" th:text="${post.title}"></h3>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                 </div>
