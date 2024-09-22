@@ -26,4 +26,8 @@ public class PostService {
         return postRepository.findAllByOrderByIdDesc();
     }
 
+    public List<Post> getLatestPosts() {
+        return postRepository.findTop5ByOrderByIdDesc();
+    }
+
 }
