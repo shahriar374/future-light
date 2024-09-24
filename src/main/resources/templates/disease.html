@@ -15,6 +15,11 @@
 
 			<h1 class="mt-5 poppins-bold">Disease Recognition</h1>
 
+			<div th:if="${param.invalid}" class="alert alert-danger alert-dismissible fade show" role="alert">
+				<p>Invalid DNA Sequence! Valid sequence contains only 'A', 'C', 'G', or 'T'</p>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+
 			<form class="row" th:action="@{/disease-result}" method="post" >
 				<div class="col-md-8 my-5 text-start">
 					<label for="dna-sequence" class="form-label">Enter DNA Sequence</label> 
