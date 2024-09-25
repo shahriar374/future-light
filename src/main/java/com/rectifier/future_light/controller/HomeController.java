@@ -42,9 +42,4 @@ public class HomeController {
 		return "gene";
 	}
 
-	@GetMapping("/statistics")
-	public String statistics() {
-		return "statistics";
-	}
-
 }
