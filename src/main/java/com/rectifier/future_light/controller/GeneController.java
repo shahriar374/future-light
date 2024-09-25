@@ -26,14 +26,18 @@ public class GeneController {
             Model m) {
         Users user = userService.getCurrentUser();
 
-        String reconstructedDnaSequence = geneService.reconstructDna(userDnaSequence, partnerDnaSequence);
+        if (geneService.isValidDNASequence(userDnaSequence) && geneService.isValidDNASequence(partnerDnaSequence)) {
+            String reconstructedDnaSequence = geneService.reconstructDna(userDnaSequence, partnerDnaSequence);
 
-        m.addAttribute("user", user);
-        m.addAttribute("userDnaSequence", userDnaSequence);
-        m.addAttribute("partnerDnaSequence", partnerDnaSequence);
-        m.addAttribute("reconstructedDnaSequence", reconstructedDnaSequence);
+            m.addAttribute("user", user);
+            m.addAttribute("userDnaSequence", userDnaSequence);
+            m.addAttribute("partnerDnaSequence", partnerDnaSequence);
+            m.addAttribute("reconstructedDnaSequence", reconstructedDnaSequence);
 
-        return "generesult";
+            return "generesult";
+        } else {
+            return "redirect:/gene-reconstruction?invalid";
+        }
     }
 
 }

@@ -34,3 +34,9 @@ Here `3306` is the port number which is running the MySQL server. `futurelight` 
 Now the application is ready to run in the localhost. The application will run in `http://localhost:8080/` by default. For any kind of port blockage issues consider:
 - [Changing the default port of spring boot](https://www.baeldung.com/spring-boot-change-port)
 - [Kill the process running in the blocked port](#blocked-port)
+
+
+## Running the machine learning model
+
+To use the `Disease Detection` and `Gene Reconstruction` feature, we have to run the machine learning model separately using `Flask API`. Necessary codes and
+instructions for this step are available at [this repository.](https://github.com/shahriar374/futurelight-ml-data)

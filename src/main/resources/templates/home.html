@@ -1,112 +1,221 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" lang="en"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-	
+      xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head th:insert="~{layout :: head(title='Future Light', localcss='home.css')}"></head>
 
 <body>
-	<!-- Navbar -->
-	<th:block th:replace="~{layout :: navbar}"></th:block>
+<!-- Navbar -->
+<th:block th:replace="~{layout :: navbar}"></th:block>
 
-	<!-- Main Body Start -->
-	<div class="container">
-		<!-- Anonymous user view -->
-		<div sec:authorize="isAnonymous()" class="row text-center justify-content-center">
+<!-- Main Body Start -->
+<div class="container">
+    <!-- Anonymous user view -->
+    <div sec:authorize="isAnonymous()" class="row text-center justify-content-center">
 
-			<h1 class="mt-5 poppins-bold">Welcome to Future Light</h1>
+        <h1 class="mt-5 poppins-bold">Welcome to Future Light</h1>
 
-			<div class="row my-5">
-				<div class="col-md-6">
-					<div class="disease-recognition">
-						<div class="d-flex justify-content-center">
-							<dotlottie-player th:src="@{/images/lottie/dna.lottie}" background="transparent" speed="1"
-							style="width: 200px; height: 200px;" loop autoplay></dotlottie-player>
-						</div>
-						
-						<h3 class="poppins-bold">Disease Recognition</h3>
-						<p>
-							Recognize diseases from the given DNA sequence
-						</p>
-						<a th:href="@{/disease-recognition}" class="btn btn-primary">
-							<svg class="feather">
-								<use th:href="@{/feather/feather-sprite.svg#crosshair}" /></svg>
-							Start</a>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="gene-reconstruction">
-						<div class="d-flex justify-content-center">
-							<dotlottie-player th:src="@{/images/lottie/target.lottie}" background="transparent" speed="1"
-							style="width: 200px; height: 200px;" loop autoplay></dotlottie-player>
-						</div>
+        <div class="row my-5">
+            <div class="col-md-6">
+                <div class="disease-recognition">
+                    <div class="d-flex justify-content-center">
+                        <dotlottie-player th:src="@{/images/lottie/dna.lottie}" background="transparent" speed="1"
+                                          style="width: 200px; height: 200px;" loop autoplay></dotlottie-player>
+                    </div>
 
-						<h3 class="poppins-bold">Gene Reconstruction</h3>
-						<p>
-							Reconstruct genes from the given DNA sequence
-						</p>
-						<a th:href="@{/gene-reconstruction}" class="btn btn-primary">
-							<svg class="feather">
-								<use th:href="@{/feather/feather-sprite.svg#tool}" /></svg>
-							Start</a>
-					</div>
-				</div>
-			</div>
+                    <h3 class="poppins-bold">Disease Recognition</h3>
+                    <p>
+                        Recognize diseases from the given DNA sequence
+                    </p>
+                    <a th:href="@{/disease-recognition}" class="btn btn-primary">
+                        <svg class="feather">
+                            <use th:href="@{/feather/feather-sprite.svg#crosshair}"/>
+                        </svg>
+                        Start</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="gene-reconstruction">
+                    <div class="d-flex justify-content-center">
+                        <dotlottie-player th:src="@{/images/lottie/target.lottie}" background="transparent" speed="1"
+                                          style="width: 200px; height: 200px;" loop autoplay></dotlottie-player>
+                    </div>
 
-		</div>
+                    <h3 class="poppins-bold">Gene Reconstruction</h3>
+                    <p>
+                        Reconstruct genes from the given DNA sequence
+                    </p>
+                    <a th:href="@{/gene-reconstruction}" class="btn btn-primary">
+                        <svg class="feather">
+                            <use th:href="@{/feather/feather-sprite.svg#tool}"/>
+                        </svg>
+                        Start</a>
+                </div>
+            </div>
+        </div>
 
-		<!-- Authenticated user view -->
-		<div sec:authorize="isAuthenticated()" class="row outer-wrapper text-center mt-5">
+        <!--	Blog    -->
+        <a th:href="@{/blog}"><h3 class="poppins-bold my-5 blog-link">Blog</h3></a>
 
-			<a class="col-md-4" th:href="@{/dashboard}">
-				<div class="user-info d-flex flex-column justify-content-center align-items-center">
-					<h3 class="poppins-bold">
-						Welcome<br>
-						<span th:text="${#authentication.name}"></span>
-					</h3>
+        <!-- Swiper -->
+        <div class="swiper mySwiper2 mb-5">
+            <div class="swiper-wrapper">
 
-					<div class="profile-pic my-3">
-						<svg class="feather">
-							<use th:href="@{/feather/feather-sprite.svg#user}" /></svg>
-					</div>
+                <div th:each="post : ${latestPosts}" class="swiper-slide">
+                    <a th:href="@{'/post/' + ${post.id}}" class="card justify-content-end"
+                       th:style="'background-image: url(/uploads/' + ${post.bannerImagePath} + ');'">
+                        <div class="card-content">
+                            <h3 class="card-title" th:text="${post.title}"></h3>
+                        </div>
+                    </a>
+                </div>
 
-					<p>
-						<strong>Full Name:</strong> <span th:text="${user.fullname}"></span> <br>
-						<strong>Email:</strong> <span th:text="${user.email}"></span> <br>
-						<strong>Gender:</strong> <span th:text="${user.gender}"></span> <br>
-						<strong>Age:</strong> <span th:text="${user.age}"></span>
-					</p>
-				</div>
-			</a>
+            </div>
+        </div>
 
-			<div class="col-md-8 function-buttons-outer-wrapper d-flex flex-column justify-content-center">
-				<h3 class="poppins-bold">Choose a feature to use</h3>
 
-				<div class="function-buttons mt-5">
-					<a th:href="@{/disease-recognition}" class="btn btn-primary mx-3">
-						<svg class="feather">
-							<use th:href="@{/feather/feather-sprite.svg#crosshair}" /></svg>
-						Disease Recognition</a>
-					<a th:href="@{/gene-reconstruction}" class="btn btn-primary mx-3">
-						<svg class="feather">
-							<use th:href="@{/feather/feather-sprite.svg#tool}" /></svg>
-						Gene Reconstruction</a>
-					<a th:href="@{/statistics}" class="btn btn-primary mx-3">
-						<svg class="feather">
-							<use th:href="@{/feather/feather-sprite.svg#bar-chart-2}" /></svg>
-						Statistics</a>
-				</div>
-			</div>
+    </div>
 
-		</div>
-	</div>
-	<!-- Main Body End -->
+    <!-- Authenticated user view -->
+    <div sec:authorize="isAuthenticated()" class="row outer-wrapper text-center mt-5">
 
-	<!-- BootStrap JS -->
-	<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+        <a class="col-md-4" th:href="@{/dashboard}">
+            <div class="user-info d-flex flex-column justify-content-center align-items-center">
+                <h3 class="poppins-bold">
+                    Welcome<br>
+                    <span th:text="${#authentication.name}"></span>
+                </h3>
 
-	<!-- Dotlottie JS -->
-	<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+                <div class="profile-pic my-3">
+                    <svg class="feather">
+                        <use th:href="@{/feather/feather-sprite.svg#user}"/>
+                    </svg>
+                </div>
+
+                <p>
+                    <strong>Full Name:</strong> <span th:text="${user.fullname}"></span> <br>
+                    <strong>Email:</strong> <span th:text="${user.email}"></span> <br>
+                    <strong>Gender:</strong> <span th:text="${user.gender}"></span> <br>
+                    <strong>Age:</strong> <span th:text="${user.age}"></span>
+                </p>
+            </div>
+        </a>
+
+        <div class="col-md-8 function-buttons-outer-wrapper d-flex flex-column justify-content-center">
+            <h3 class="poppins-bold">Choose a feature to use</h3>
+
+            <div class="function-buttons mt-5">
+                <a th:href="@{/disease-recognition}" class="btn btn-primary mx-3">
+                    <svg class="feather">
+                        <use th:href="@{/feather/feather-sprite.svg#crosshair}"/>
+                    </svg>
+                    Disease Recognition</a>
+                <a th:href="@{/gene-reconstruction}" class="btn btn-primary mx-3">
+                    <svg class="feather">
+                        <use th:href="@{/feather/feather-sprite.svg#tool}"/>
+                    </svg>
+                    Gene Reconstruction</a>
+            </div>
+
+            <!--	Blog    -->
+            <a th:href="@{/blog}"><h3 class="poppins-bold my-5 blog-link">Blog</h3></a>
+
+            <!-- Swiper -->
+            <div class="swiper mySwiper mb-5">
+                <div class="swiper-wrapper">
+
+                    <div th:each="post : ${latestPosts}" class="swiper-slide">
+                        <a th:href="@{'/post/' + ${post.id}}" class="card justify-content-end"
+                           th:style="'background-image: url(/uploads/' + ${post.bannerImagePath} + ');'">
+                            <div class="card-content">
+                                <h3 class="card-title" th:text="${post.title}"></h3>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<p class="footer my-4 text-center">© 2024, Team Rectifier</p>
+
+<!-- Main Body End -->
+
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        // Responsive breakpoints
+        breakpoints: {
+            // when window width is >= 320px
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            },
+            // when window width is >= 480px
+            480: {
+                slidesPerView: 2,
+                spaceBetween: 20
+            },
+            // when window width is >= 1025p
+            1025: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            }
+        }
+    });
+
+    var swiper2 = new Swiper(".mySwiper2", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        // Responsive breakpoints
+        breakpoints: {
+            // when window width is >= 320px
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            },
+            // when window width is >= 480px
+            480: {
+                slidesPerView: 2,
+                spaceBetween: 20
+            },
+            // when window width is >= 1025p
+            1025: {
+                slidesPerView: 4,
+                spaceBetween: 20
+            }
+        }
+    });
+</script>
+
+<!-- BootStrap JS -->
+<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+
+<!-- Dotlottie JS -->
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 
 </body>
 </html>

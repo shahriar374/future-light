@@ -18,6 +18,11 @@
     stroke-width: 1;
 }
 
+.blog-link {
+    color: var(--custom-light);
+    text-decoration: none;
+}
+
 
 /* 
   ##Device = Tablets, Ipads (landscape)
@@ -25,12 +30,12 @@
 */
 
 @media (min-width: 768px) and (max-width: 1024px) {
-  
+
     .function-buttons a {
         margin-top: 10px !important;
         margin-bottom: 10px !important;
     }
-    
+
 }
 
 
@@ -40,7 +45,7 @@
 */
 
 @media (min-width: 320px) and (max-width: 480px) {
-  
+
     .function-buttons a {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -49,7 +54,7 @@
     .outer-wrapper {
         padding: 0px 20px;
     }
-    
+
     .function-buttons {
         margin-top: 20px !important;
     }
@@ -60,3 +65,69 @@
 
 }
 
+/* Card CSS */
+
+/* General card styling */
+.card {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    background-image: url('https://example.com/banner-image.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    transition: transform 0.3s ease;
+}
+
+/* Dark gradient overlay */
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.7) 100%);
+    z-index: 1;
+}
+
+/* Card content (title) */
+.card-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    width: 100%;
+}
+
+.card-title {
+    color: white;
+    font-size: 16px;
+    margin: 0;
+    text-align: center;
+}
+
+/* Hover effect */
+.card::before:hover {
+    /*transform: scale(1.01);*/
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+
+
+/*Swiper CSS*/
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

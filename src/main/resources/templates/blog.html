@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="~{layout :: head(title='Future Light Blog', localcss='blog.css')}"></head>
+
+<body>
+<!-- Navbar -->
+<th:block th:replace="~{layout :: navbar}"></th:block>
+
+<!-- Main Body Start -->
+<div class="container">
+    <div class="row text-center">
+
+        <h1 class="mt-5 poppins-bold">Blog</h1>
+
+        <!-- Blog buttons -->
+        <a th:href="@{/blog/add}">
+            <button class="btn btn-primary">
+                <svg class="feather">
+                    <use th:href="@{/feather/feather-sprite.svg#edit-3}" /></svg>
+                Add Post
+            </button>
+        </a>
+
+        <!--Card start-->
+        <div class="row mt-5">
+            <div class="col-md-4" th:each="post : ${posts}">
+                <div class="card my-4">
+                    <img th:src="@{'/uploads/' + ${post.bannerImagePath}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title poppins-bold" th:text="${post.title}">Title</h5>
+                        <p class="card-text" th:text="${post.content}">Description</p>
+                        <a th:href="@{'/post/' + ${post.id}}" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Card end -->
+
+    </div>
+</div>
+
+<!-- Footer -->
+<p class="footer my-4 text-center">© 2024, Team Rectifier</p>
+<!-- Main Body End -->
+
+<!-- BootStrap JS -->
+<th:block th:replace="~{layout :: bootstrapjs}"></th:block>
+</body>
+</html>

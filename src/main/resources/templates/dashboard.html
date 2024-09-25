@@ -34,14 +34,6 @@
 							All users
 				</button>
 				</a>
-				
-				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/statistics}">
-				<button class="btn btn-primary">
-							<svg class="feather">
-								<use th:href="@{/feather/feather-sprite.svg#bar-chart-2}" /></svg>
-							Statistics
-				</button>
-				</a>
 
 				<form class="text-start my-5" th:action="@{/dashboard/update}" method="post">
 					<div class="mb-3">
@@ -99,6 +91,9 @@
 
 		</div>
 	</div>
+
+	<!-- Footer -->
+	<p class="footer my-4 text-center">© 2024, Team Rectifier</p>
 	<!-- Main Body End -->
 
 	<!-- BootStrap JS -->
